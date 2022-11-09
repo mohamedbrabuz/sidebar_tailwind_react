@@ -7,8 +7,11 @@ import {RiCoupon2Line, RiFundsBoxLine, RiCompassDiscoverLine} from 'react-icons/
 import {HiOutlineUserGroup, HiOutlineHome} from 'react-icons/hi'
 //svg
 import Tailwind from './tailwind.svg'
+import { useStateContext } from './ContextProvider';
+
 
 function App() {
+  const { currentColor, setColor } = useStateContext()
   const [open, setOpen] = useState(true)
   const menus = [
     {name: 'Home', link:'', icon: <HiOutlineHome size={25} />},
@@ -30,9 +33,9 @@ function App() {
       <div className={`h-screen bg-slate-100 py-5 px-7 ${open ? 'w-72' : 'w-28'} duration-300`}>
         <div className={`flex ${open ? 'justify-between' : 'justify-center'}`}>
           <div className='flex gap-2'>
-            <div className='bg-red-700 w-3 h-3 rounded-full'></div>
-            <div className='bg-yellow-400 w-3 h-3 rounded-full'></div>
-            <div className='bg-green-600 w-3 h-3 rounded-full'></div>
+            <div className='bg-[#1E293B] w-3 h-3 rounded-full cursor-pointer' onClick={() => setColor('hover:bg-[#1E293B] hover:text-white')}></div>
+            <div className='bg-yellow-400 w-3 h-3 rounded-full cursor-pointer' onClick={() => setColor('hover:bg-yellow-400 hover:text-white')}></div>
+            <div className='bg-green-600 w-3 h-3 rounded-full cursor-pointer' onClick={() => setColor('hover:bg-green-600 hover:text-white')}></div>
           </div>
           {open && <TbArrowsLeftRight className='text-gray-700 hover:scale-125 duration-300 transition-all cursor-pointer' size={18} onClick={() => setOpen(!open)} />}
         </div>
@@ -44,7 +47,7 @@ function App() {
         {/* main */}
         <div className={`flex flex-col ${!open ? 'items-center' : ''}`}>
           {menus.map((menu, index)=>(
-            <div key={index} className={`flex items-center ${!open ? 'justify-center ' : ''} text-gray-600 gap-3 py-3 px-4 hover:bg-[#1E293B] hover:text-white rounded-xl`}>
+            <div key={index} className={`flex items-center ${!open ? 'justify-center ' : ''} text-gray-600 gap-3 py-3 px-4 rounded-xl ${currentColor}`}>
               <div className='font-bold'>{menu.icon}</div>
               <h4 className={`font-semibold text-lg ${!open && 'hidden'}`}>{menu.name}</h4>
             </div>
@@ -52,7 +55,7 @@ function App() {
           {/* discover */}
           <p className='text-md text-gray-400 text-sm font-semibold my-3 mx-4'>Discover</p>
           {discover.map((menu, index)=>(
-            <div key={index} className='flex items-center text-gray-600 gap-3 py-3 px-4 hover:bg-black hover:text-white rounded-xl'>
+            <div key={index} className={`flex items-center text-gray-600 gap-3 py-3 px-4 hover:bg-black hover:text-white rounded-xl ${currentColor}`}>
               <div>{menu.icon}</div>
               <h4 className={`font-semibold text-lg ${!open && 'hidden'}`}>{menu.name}</h4>
             </div>
@@ -60,7 +63,7 @@ function App() {
           {/* collection */}
           <p className={`text-md text-gray-400 text-sm font-semibold mx-4 my-3 ${!open && 'text-center'}`}>Your Collection</p>
           {collection.map((menu, index)=>(
-            <div key={index} className='flex items-center text-gray-600 gap-3 py-3 px-4 hover:bg-black hover:text-white rounded-xl'>
+            <div key={index} className={`flex items-center text-gray-600 gap-3 py-3 px-4 hover:bg-black hover:text-white rounded-xl ${currentColor}`}>
               <div>{menu.icon}</div>
               <h4 className={`font-semibold text-lg ${!open && 'hidden'}`}>{menu.name}</h4>
             </div>
